@@ -20,6 +20,11 @@ class MainActivity : AppCompatActivity(), MainView {
 
         initPresenter()
 
+        initClickListener()
+    }
+
+    private fun initClickListener() {
+
         with(binding) {
             btnNumber1.setOnClickListener {
                 presenter.onCounterClick(DEFAULT_VALUE_ZERO)
