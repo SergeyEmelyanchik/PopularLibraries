@@ -1,5 +1,15 @@
 package ru.geekbrains.popularlibraries
 
-interface MainView {
-    fun setText(counter: String, id: Int)
+import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.StateStrategyType
+
+@StateStrategyType(AddToEndSingleStrategy::class)
+interface MainView : MvpView {
+
+    fun setCounterOneText(counter: String)
+
+    fun setCounterTwoText(counter: String)
+
+    fun setCounterThirdText(counter: String)
 }

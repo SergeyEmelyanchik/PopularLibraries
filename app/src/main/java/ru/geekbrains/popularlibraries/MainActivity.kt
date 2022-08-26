@@ -2,23 +2,23 @@ package ru.geekbrains.popularlibraries
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 import ru.geekbrains.popularlibraries.databinding.ActivityMainBinding
 import ru.geekbrains.popularlibraries.utils.DEFAULT_VALUE_ONE
 import ru.geekbrains.popularlibraries.utils.DEFAULT_VALUE_TWO
 import ru.geekbrains.popularlibraries.utils.DEFAULT_VALUE_ZERO
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var presenter: CountersPresenter
+    private val presenter by moxyPresenter { CountersPresenter(CountersModel()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        initPresenter()
 
         initClickListener()
     }
@@ -27,28 +27,26 @@ class MainActivity : AppCompatActivity(), MainView {
 
         with(binding) {
             btnNumber1.setOnClickListener {
-                presenter.onCounterClick(DEFAULT_VALUE_ZERO)
+                presenter.onCounterOneClick()
             }
             btnNumber2.setOnClickListener {
-                presenter.onCounterClick(DEFAULT_VALUE_ONE)
+                presenter.onCounterTwoClick()
             }
             btnNumber3.setOnClickListener {
-                presenter.onCounterClick(DEFAULT_VALUE_TWO)
+                presenter.onCounterThirdClick()
             }
         }
     }
 
-    private fun initPresenter() {
-        presenter = CountersPresenter(this)
+    override fun setCounterOneText(counter: String) = with(binding) {
+        tvText1.text = counter
     }
 
-    override fun setText(counter: String, position: Int) {
-        with(binding) {
-            when (position) {
-                DEFAULT_VALUE_ZERO -> tvText1.text = counter
-                DEFAULT_VALUE_ONE -> tvText2.text = counter
-                DEFAULT_VALUE_TWO -> tvText3.text = counter
-            }
-        }
+    override fun setCounterTwoText(counter: String) = with(binding) {
+        tvText2.text = counter
+    }
+
+    override fun setCounterThirdText(counter: String) = with(binding) {
+        tvText3.text = counter
     }
 }
