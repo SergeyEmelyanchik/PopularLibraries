@@ -1,4 +1,4 @@
-package ru.geekbrains.popularlibraries
+package ru.geekbrains.popularlibraries.repository.implementation
 
 class CountersModel {
 
