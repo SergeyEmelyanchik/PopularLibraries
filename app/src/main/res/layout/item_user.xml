@@ -17,4 +17,11 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Same Text" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/tvUserLogin"
+        tools:layout_editor_absoluteX="16dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

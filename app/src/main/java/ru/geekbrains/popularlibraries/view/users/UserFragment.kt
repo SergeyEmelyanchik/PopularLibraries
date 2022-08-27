@@ -15,7 +15,7 @@ import ru.geekbrains.popularlibraries.model.GitHubUser
 import ru.geekbrains.popularlibraries.model.repository.implementation.GitHubRepositoryImpl
 import ru.geekbrains.popularlibraries.presenter.UserPresenter
 
-class UserFragment : MvpAppCompatFragment(), UserView, OnBackPressedListener {
+class UserFragment : MvpAppCompatFragment(), UserView, OnBackPressedListener, OnItemClickListener {
     companion object {
         fun getInstance(): UserFragment {
             return UserFragment()
@@ -29,7 +29,7 @@ class UserFragment : MvpAppCompatFragment(), UserView, OnBackPressedListener {
     private val binding: FragmentUserListBinding
         get() = _binding!!
 
-    private val adapter = UserAdapter()
+    private val adapter = UserAdapter(this)
 
     private val presenter: UserPresenter by moxyPresenter {
         UserPresenter(GitHubRepositoryImpl(), CourseApp.instance.router)
@@ -62,4 +62,7 @@ class UserFragment : MvpAppCompatFragment(), UserView, OnBackPressedListener {
     }
 
     override fun onBackPressed(): Boolean = presenter.onBackPressed()
+    override fun onItemClick(gitHubUser: GitHubUser) {
+        presenter.showDetails(gitHubUser)
+    }
 }
