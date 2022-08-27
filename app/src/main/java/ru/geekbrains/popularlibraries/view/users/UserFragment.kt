@@ -1,4 +1,4 @@
-package ru.geekbrains.popularlibraries.user
+package ru.geekbrains.popularlibraries.view.users
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,8 @@ import ru.geekbrains.popularlibraries.core.OnBackPressedListener
 import ru.geekbrains.popularlibraries.databinding.FragmentUserListBinding
 import ru.geekbrains.popularlibraries.main.UserAdapter
 import ru.geekbrains.popularlibraries.model.GitHubUser
-import ru.geekbrains.popularlibraries.repository.implementation.GitHubRepositoryImpl
+import ru.geekbrains.popularlibraries.model.repository.implementation.GitHubRepositoryImpl
+import ru.geekbrains.popularlibraries.presenter.UserPresenter
 
 class UserFragment : MvpAppCompatFragment(), UserView, OnBackPressedListener {
     companion object {

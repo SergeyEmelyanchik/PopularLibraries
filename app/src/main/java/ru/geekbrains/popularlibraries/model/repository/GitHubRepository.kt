@@ -1,4 +1,4 @@
-package ru.geekbrains.popularlibraries.repository
+package ru.geekbrains.popularlibraries.model.repository
 
 import ru.geekbrains.popularlibraries.model.GitHubUser
 

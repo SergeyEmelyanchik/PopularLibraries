@@ -1,8 +1,9 @@
-package ru.geekbrains.popularlibraries.user
+package ru.geekbrains.popularlibraries.presenter
 
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
-import ru.geekbrains.popularlibraries.repository.GitHubRepository
+import ru.geekbrains.popularlibraries.model.repository.GitHubRepository
+import ru.geekbrains.popularlibraries.view.users.UserView
 
 class UserPresenter(
     private val repository: GitHubRepository,

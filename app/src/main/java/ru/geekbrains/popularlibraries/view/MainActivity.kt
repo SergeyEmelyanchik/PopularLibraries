@@ -1,4 +1,4 @@
-package ru.geekbrains.popularlibraries.main
+package ru.geekbrains.popularlibraries.view
 
 import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -8,6 +8,7 @@ import ru.geekbrains.popularlibraries.CourseApp
 import ru.geekbrains.popularlibraries.R
 import ru.geekbrains.popularlibraries.core.OnBackPressedListener
 import ru.geekbrains.popularlibraries.databinding.ActivityMainBinding
+import ru.geekbrains.popularlibraries.presenter.MainPresenter
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 

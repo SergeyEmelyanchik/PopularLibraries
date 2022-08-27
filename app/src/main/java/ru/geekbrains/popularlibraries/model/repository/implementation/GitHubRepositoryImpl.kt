@@ -1,7 +1,7 @@
-package ru.geekbrains.popularlibraries.repository.implementation
+package ru.geekbrains.popularlibraries.model.repository.implementation
 
 import ru.geekbrains.popularlibraries.model.GitHubUser
-import ru.geekbrains.popularlibraries.repository.GitHubRepository
+import ru.geekbrains.popularlibraries.model.repository.GitHubRepository
 
 class GitHubRepositoryImpl : GitHubRepository {
 
