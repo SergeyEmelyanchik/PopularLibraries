@@ -9,4 +9,11 @@ import ru.geekbrains.popularlibraries.model.GitHubUser
 interface UserView : MvpView {
 
     fun initList(list: List<GitHubUser>)
+    fun showLoading()
+    fun hideLoading()
+    fun errorGetUser(message: String?)
+}
+
+interface ItemClickListener {
+    fun onUserClick(user: GitHubUser)
 }

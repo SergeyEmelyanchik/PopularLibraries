@@ -1,11 +1,10 @@
-package ru.geekbrains.popularlibraries.view.users.user
+package screen
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
-import ru.geekbrains.popularlibraries.model.GitHubUser
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface UserDetailsView : MvpView {
+interface UserScreenView : MvpView {
     fun setUser(login: String?)
 }

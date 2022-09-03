@@ -1,7 +1,9 @@
 package ru.geekbrains.popularlibraries.model.repository.implementation
 
+import io.reactivex.rxjava3.core.Observable
 import ru.geekbrains.popularlibraries.model.GitHubUser
 import ru.geekbrains.popularlibraries.model.repository.GitHubRepository
+import java.util.concurrent.TimeUnit
 
 class GitHubRepositoryImpl : GitHubRepository {
 
@@ -14,8 +16,8 @@ class GitHubRepositoryImpl : GitHubRepository {
         GitHubUser("Sandra Bullock")
     )
 
-    override fun getUsers(): List<GitHubUser> {
-        return repositories
+    override fun getUsers(): Observable<List<GitHubUser>> {
+        return Observable.fromIterable(listOf(repositories)).delay(1, TimeUnit.SECONDS)
     }
 
 }

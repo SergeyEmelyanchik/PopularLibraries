@@ -6,6 +6,7 @@ import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.geekbrains.popularlibraries.CourseApp
 import ru.geekbrains.popularlibraries.R
+import ru.geekbrains.popularlibraries.core.App
 import ru.geekbrains.popularlibraries.core.OnBackPressedListener
 import ru.geekbrains.popularlibraries.databinding.ActivityMainBinding
 import ru.geekbrains.popularlibraries.presenter.MainPresenter
@@ -16,7 +17,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     private val navigator = AppNavigator(this, R.id.containerMain)
 
-    private val presenter by moxyPresenter { MainPresenter(CourseApp.instance.router) }
+    private val presenter by moxyPresenter { MainPresenter(App.instance.router) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,15 +28,16 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        CourseApp.instance.navigatorHolder.setNavigator(navigator)
+        App.instance.navigationHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
-        CourseApp.instance.navigatorHolder.removeNavigator()
+        App.instance.navigationHolder.removeNavigator()
         super.onPause()
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         supportFragmentManager.fragments.forEach() { currentFragment ->
             if (currentFragment is OnBackPressedListener && currentFragment.onBackPressed()) {
                 return
