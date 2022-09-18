@@ -1,6 +1,10 @@
 package ru.geekbrains.popularlibraries.utils
 
 import android.view.View
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import ru.geekbrains.popularlibraries.R
 
 fun View.hide(): View {
     if (visibility != View.GONE) {
@@ -14,4 +18,8 @@ fun View.show(): View {
         visibility = View.VISIBLE
     }
     return this
+}
+fun ImageView.loadGlide(url: String?) {
+    Glide.with(context).load(url).transform(CircleCrop())
+        .placeholder(R.drawable.ic_user_placeholder).into(this)
 }

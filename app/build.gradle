@@ -16,6 +16,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String","SERVER_URL","\"https://api.github.com\""
     }
 
     buildFeatures {
@@ -39,7 +40,8 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -61,5 +63,12 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 
 
-    annotationProcessor "com.github.moxy-community:moxy-compiler:2.2.2"
+    //Retrofit
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
 }

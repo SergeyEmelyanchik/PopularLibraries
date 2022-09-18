@@ -1,4 +1,4 @@
-package ru.geekbrains.popularlibraries.view.users
+package ru.geekbrains.popularlibraries.view.user
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
@@ -15,5 +15,5 @@ interface UserView : MvpView {
 }
 
 interface ItemClickListener {
-    fun onUserClick(user: GitHubUser)
+    fun onUserClick(userLogin: String)
 }

@@ -4,10 +4,8 @@ import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
-import ru.geekbrains.popularlibraries.CourseApp
 import ru.geekbrains.popularlibraries.R
 import ru.geekbrains.popularlibraries.core.App
-import ru.geekbrains.popularlibraries.core.OnBackPressedListener
 import ru.geekbrains.popularlibraries.databinding.ActivityMainBinding
 import ru.geekbrains.popularlibraries.presenter.MainPresenter
 

@@ -1,17 +1,15 @@
 package ru.geekbrains.popularlibraries.presenter
 
 import com.github.terrakok.cicerone.Router
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import ru.geekbrains.popularlibraries.core.navigation.UserScreen
 import ru.geekbrains.popularlibraries.core.navigation.UsersScreen
-import ru.geekbrains.popularlibraries.model.GitHubUser
 import ru.geekbrains.popularlibraries.model.repository.GitHubRepository
-import ru.geekbrains.popularlibraries.view.users.UserView
+import ru.geekbrains.popularlibraries.utils.subscribeByDefault
+import ru.geekbrains.popularlibraries.view.user.UserView
 
 
-class UsersDetailsPresenter(
+class UsersPresenter(
     private val repository: GitHubRepository,
     private val router: Router,
 ) : MvpPresenter<UserView>() {
@@ -19,7 +17,7 @@ class UsersDetailsPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.showLoading()
-        repository.getUsers().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        repository.getUsers().subscribeByDefault()
             .subscribe({
                 viewState.initList(it)
                 viewState.hideLoading()
@@ -29,8 +27,8 @@ class UsersDetailsPresenter(
                 })
     }
 
-    fun openUserScreen(user: GitHubUser) {
-        router.navigateTo(UserScreen(user))
+    fun openUserScreen(userLogin: String) {
+        router.navigateTo(UserScreen(userLogin))
     }
 
     fun onBackPressed(): Boolean {
