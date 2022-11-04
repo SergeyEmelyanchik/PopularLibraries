@@ -11,7 +11,7 @@ typealias OnUserClickListener = (login: String) -> Unit
 
 class UserAdapter(
     private val onUserClickListener: OnUserClickListener,
-) : RecyclerView.Adapter<GithubUserViewHolder>() {
+) : RecyclerView.Adapter<GitHubUserViewHolder>() {
 
 //    private lateinit var userClick: ItemClickListener
 //
@@ -25,21 +25,22 @@ class UserAdapter(
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubUserViewHolder {
-        return GithubUserViewHolder(
-            ItemUserBinding.inflate(LayoutInflater.from(parent.context)),
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GitHubUserViewHolder {
+        return GitHubUserViewHolder(ItemUserBinding.inflate(LayoutInflater.from(parent.context),
+            parent,
+            false),
             onUserClickListener
         )
     }
 
-    override fun onBindViewHolder(holder: GithubUserViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GitHubUserViewHolder, position: Int) {
         holder.bind(users[position])
     }
 
     override fun getItemCount() = users.size
 }
 
-class GithubUserViewHolder(
+class GitHubUserViewHolder(
     private val binding: ItemUserBinding,
     private val onUserClickListener: OnUserClickListener,
 ) : RecyclerView.ViewHolder(binding.root) {

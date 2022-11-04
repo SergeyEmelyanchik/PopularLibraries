@@ -18,4 +18,8 @@ data class UsersDto(
     @Expose
     @SerializedName("avatar_url")
     val avatarUrl: String,
+
+    @Expose
+    @SerializedName("repos_url")
+    val reposUrl: String,
 ) : Parcelable

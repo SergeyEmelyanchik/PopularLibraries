@@ -1,0 +1,52 @@
+package ru.geekbrains.popularlibraries.view.userdetails
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import ru.geekbrains.popularlibraries.databinding.ItemReposBinding
+import ru.geekbrains.popularlibraries.network.ReposDto
+
+typealias OnUserClickListener = (login: String) -> Unit
+
+class ReposAdapter(
+    private val onUserClickListener: OnUserClickListener,
+) : RecyclerView.Adapter<GitHubUserReposViewHolder>() {
+
+    var repos: List<ReposDto> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GitHubUserReposViewHolder {
+        return GitHubUserReposViewHolder(
+            ItemReposBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false),
+            onUserClickListener)
+    }
+
+    override fun onBindViewHolder(holder: GitHubUserReposViewHolder, position: Int) {
+        holder.bind(repos[position])
+    }
+
+    override fun getItemCount() = repos.size
+}
+
+class GitHubUserReposViewHolder(
+    private val binding: ItemReposBinding,
+    private val onUserClickListener: OnUserClickListener,
+) : RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(item: ReposDto) = with(binding) {
+
+        nameRepo.text = item.name
+
+        dateCreating.text=item.createdAt
+
+        root.setOnClickListener {
+            // onUserClickListener.invoke(item.login)
+        }
+    }
+}

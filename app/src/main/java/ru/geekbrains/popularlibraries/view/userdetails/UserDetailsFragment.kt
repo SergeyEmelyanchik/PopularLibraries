@@ -5,11 +5,12 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.geekbrains.popularlibraries.core.App
 import ru.geekbrains.popularlibraries.databinding.FragmentUserScreenBinding
-import ru.geekbrains.popularlibraries.model.GitHubUser
+import ru.geekbrains.popularlibraries.model.GitHubUserRepos
 import ru.geekbrains.popularlibraries.model.repository.GitHubRepositoryImpl
 import ru.geekbrains.popularlibraries.network.NetworkProvider
 import ru.geekbrains.popularlibraries.presenter.UserDetailsPresenter
@@ -19,6 +20,11 @@ import ru.geekbrains.popularlibraries.utils.show
 import ru.geekbrains.popularlibraries.view.OnBackPressedListener
 
 class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPressedListener {
+
+    private val reposAdapter = ReposAdapter {
+
+    }
+
 
     private val presenter: UserDetailsPresenter by moxyPresenter {
         UserDetailsPresenter(
@@ -53,14 +59,17 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPress
         arguments?.getString(KEY_USER)?.let {
             presenter.loadUser(it)
         }
+        binding?.rvGitHubUserRepos?.adapter = reposAdapter
+        binding?.rvGitHubUserRepos?.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun onBackPressed() = presenter.onBackPressed()
 
-    override fun showUser(user: GitHubUser) {
+    override fun showUser(user: GitHubUserRepos) {
         TransitionManager.beginDelayedTransition(binding?.root)
-        binding?.userName?.text = user.login
-        binding?.ivUserAvatar?.loadGlide(user.avatarUrl)
+        binding?.userName?.text = user.user.login
+        binding?.ivUserAvatar?.loadGlide(user.user.avatarUrl)
+        reposAdapter.repos = user.reposList
     }
 
     override fun showLoading() {
