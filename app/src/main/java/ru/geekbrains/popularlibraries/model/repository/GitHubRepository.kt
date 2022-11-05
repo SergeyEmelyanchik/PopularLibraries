@@ -7,5 +7,4 @@ import ru.geekbrains.popularlibraries.model.data.ReposDto
 interface GitHubRepository {
     fun getUsers(): Single<List<GitHubUser>>
     fun getUserWithReposByLogin(login: String): Single<Pair<GitHubUser, List<ReposDto>>>
-    fun checkStatusNetwork(): Single<Boolean>
 }
