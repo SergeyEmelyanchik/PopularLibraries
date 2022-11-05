@@ -16,5 +16,5 @@ data class GitHubUser(
 @Parcelize
 data class GitHubUserRepos(
     val user: GitHubUser,
-    val reposList: List<ReposDto>
+    var reposList: List<ReposDto>
 ) : Parcelable

@@ -33,7 +33,11 @@ class UserDetailsPresenter(
             repository.getUserByLogin(login),
             repository.getReposByLogin(login)
         ) { user, repos ->
-            GitHubUserRepos(user, repos.sortedByDescending { it.createdAt })
+            repos.sortedByDescending { it.createdAt }.map {
+                it.createdAt = it.createdAt.substring(0, 10)
+                it
+            }
+            GitHubUserRepos(user, repos)
         }.subscribeByDefault().subscribe({
             viewState.hideLoading()
             viewState.showUser(it)
@@ -50,7 +54,7 @@ class UserDetailsPresenter(
     }
 
     fun openRepoScreen(repo: ReposDto) {
-        router.navigateTo(RepoScreen(repo))
+        router.backTo(RepoScreen(repo))
     }
 
     override fun onDestroy() {

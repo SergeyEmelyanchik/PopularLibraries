@@ -13,4 +13,37 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="MyTheme.PopularLibraries" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="android:navigationBarColor">@color/teal_500</item>
+        <item name="colorPrimary">@color/teal_600</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/teal_100</item>
+        <item name="colorOnPrimaryContainer">@color/teal_900</item>
+        <item name="colorPrimaryInverse">@color/teal_200</item>
+        <item name="colorSecondary">@color/teal_600</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/teal_100</item>
+        <item name="colorOnSecondaryContainer">@color/teal_900</item>
+        <item name="colorTertiary">@color/teal_600</item>
+        <item name="colorOnTertiary">@color/white</item>
+        <item name="colorTertiaryContainer">@color/teal_100</item>
+        <item name="colorOnTertiaryContainer">@color/teal_900</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/t700</item>
+
+
+        <item name="textAppearanceCaption">@style/MyTextAppearanceCaption</item>
+        <item name="textAppearanceSubtitle1">@style/MytTextAppearanceSubtitle1</item>
+
+        <item name="android:textViewStyle">@style/MyTextViewStyle</item>
+        <item name="textInputStyle">@style/MyTextInputStyle</item>
+        <item name="cardViewStyle">@style/MyCardViewStyle</item>
+        <item name="materialButtonStyle">@style/MyMaterialButtonStyle</item>
+        <item name="radioButtonStyle">@style/MyRadioButtonStyle</item>
+        <item name="tabStyle">@style/MyTabStyle</item>
+
+        <item name="superFont">@font/share</item>
+        <item name="superColor">@color/teal_50</item>
+    </style>
 </resources>
