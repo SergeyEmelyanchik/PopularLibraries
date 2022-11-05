@@ -13,18 +13,19 @@ import ru.geekbrains.popularlibraries.model.data.ReposDto
 import ru.geekbrains.popularlibraries.utils.disposebleBy
 import ru.geekbrains.popularlibraries.utils.subscribeByDefault
 import ru.geekbrains.popularlibraries.view.userdetails.UserDetailsView
+import javax.inject.Inject
 
-class UserDetailsPresenter(
+class UserDetailsPresenter() : MvpPresenter<UserDetailsView>() {
 
-    private val router: Router,
-    private val repository: GitHubRepository,
-) : MvpPresenter<UserDetailsView>() {
+    @Inject
+    lateinit var repository: GitHubRepository
+
+    @Inject
+    lateinit var router: Router
 
     private val bag = CompositeDisposable()
     private var mLogin: String? = null
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
-    }
+
 
     fun loadUser(login: String) {
         mLogin = login

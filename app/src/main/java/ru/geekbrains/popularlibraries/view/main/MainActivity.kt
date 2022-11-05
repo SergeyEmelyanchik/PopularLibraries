@@ -1,6 +1,7 @@
 package ru.geekbrains.popularlibraries.view.main
 
 import android.os.Bundle
+import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -8,6 +9,7 @@ import ru.geekbrains.popularlibraries.R
 import ru.geekbrains.popularlibraries.core.App
 import ru.geekbrains.popularlibraries.databinding.ActivityMainBinding
 import ru.geekbrains.popularlibraries.presenter.MainPresenter
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
@@ -15,10 +17,18 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     private val navigator = AppNavigator(this, R.id.containerMain)
 
-    private val presenter by moxyPresenter { MainPresenter(App.instance.router) }
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+    private val presenter by moxyPresenter {
+        MainPresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        App.instance.appComponent.inject(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -26,11 +36,11 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        App.instance.navigationHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
-        App.instance.navigationHolder.removeNavigator()
+        navigatorHolder.removeNavigator()
         super.onPause()
     }
 

@@ -16,7 +16,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "String","SERVER_URL","\"https://api.github.com\""
+        buildConfigField "String", "SERVER_URL", "\"https://api.github.com\""
     }
 
     buildFeatures {
@@ -77,4 +77,9 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.4.3'
     implementation 'androidx.room:room-rxjava3:2.4.3'
     kapt 'androidx.room:room-compiler:2.4.3'
+
+    //Dagger2
+    implementation 'com.google.dagger:dagger:2.38.1'
+    kapt 'com.google.dagger:dagger-compiler:2.38.1'
+
 }

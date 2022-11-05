@@ -30,13 +30,9 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPress
 
 
     private val presenter: UserDetailsPresenter by moxyPresenter {
-        UserDetailsPresenter(
-            App.instance.router,
-            GitHubRepositoryImpl(
-                NetworkProvider.usersApi, App.instance.database.userDao(),
-                AndroidNetworkStatus(requireContext()).isOnlineSingle()
-            )
-        )
+        UserDetailsPresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     private var binding: FragmentUserScreenBinding? = null
@@ -94,7 +90,6 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPress
     }
 
     override fun hideLoading() {
-        TransitionManager.beginDelayedTransition(binding?.root)
         binding?.apply {
             progressBar.hide()
             userName.show()

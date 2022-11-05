@@ -29,14 +29,7 @@ class UsersFragment : MvpAppCompatFragment(), UserView, OnBackPressedListener {
 
 
     private val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(
-            GitHubRepositoryImpl(
-                NetworkProvider.usersApi,
-                App.instance.database.userDao(),
-                AndroidNetworkStatus(requireContext()).isOnlineSingle()
-            ),
-            App.instance.router
-        )
+        UsersPresenter()
     }
 
     //   private val listener = object : ItemClickListener {

@@ -15,7 +15,7 @@ import ru.geekbrains.popularlibraries.view.main.OnBackPressedListener
 class RepoUserFragment : MvpAppCompatFragment(), RepoUserView, OnBackPressedListener {
 
     private val presenter: RepoUserPresenter by moxyPresenter {
-        RepoUserPresenter(App.instance.router, arguments?.getParcelable(KEY_REPO))
+        RepoUserPresenter(arguments?.getParcelable(KEY_REPO))
     }
 
     private lateinit var binding: FragmentRepoUserBinding
