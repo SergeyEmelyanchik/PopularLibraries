@@ -2,7 +2,7 @@ package ru.geekbrains.popularlibraries.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import ru.geekbrains.popularlibraries.network.ReposDto
+import ru.geekbrains.popularlibraries.model.data.ReposDto
 
 @Parcelize
 data class GitHubUser(
@@ -10,11 +10,5 @@ data class GitHubUser(
     val login: String,
     val avatarUrl: String?,
     val reposUrl: String?,
-) : Parcelable
-
-
-@Parcelize
-data class GitHubUserRepos(
-    val user: GitHubUser,
-    var reposList: List<ReposDto>
+    var repos:List<ReposDto>?=null
 ) : Parcelable

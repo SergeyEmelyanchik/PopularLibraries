@@ -7,9 +7,9 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 import ru.geekbrains.popularlibraries.core.navigation.RepoScreen
 import ru.geekbrains.popularlibraries.core.navigation.UserScreen
-import ru.geekbrains.popularlibraries.model.GitHubUserRepos
+import ru.geekbrains.popularlibraries.model.GitHubUser
 import ru.geekbrains.popularlibraries.model.repository.GitHubRepository
-import ru.geekbrains.popularlibraries.network.ReposDto
+import ru.geekbrains.popularlibraries.model.data.ReposDto
 import ru.geekbrains.popularlibraries.utils.disposebleBy
 import ru.geekbrains.popularlibraries.utils.subscribeByDefault
 import ru.geekbrains.popularlibraries.view.userdetails.UserDetailsView
@@ -37,7 +37,7 @@ class UserDetailsPresenter(
                 it.createdAt = it.createdAt.substring(0, 10)
                 it
             }
-            GitHubUserRepos(user, repos)
+            Pair<GitHubUser, List<ReposDto>>(user,repos)
         }.subscribeByDefault().subscribe({
             viewState.hideLoading()
             viewState.showUser(it)

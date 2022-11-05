@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.geekbrains.popularlibraries.databinding.ItemReposBinding
-import ru.geekbrains.popularlibraries.network.ReposDto
+import ru.geekbrains.popularlibraries.model.data.ReposDto
 
 typealias OnUserClickListener = (repo: ReposDto) -> Unit
 

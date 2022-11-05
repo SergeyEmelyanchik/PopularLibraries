@@ -1,4 +1,4 @@
-package ru.geekbrains.popularlibraries.network
+package ru.geekbrains.popularlibraries.model.data
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose

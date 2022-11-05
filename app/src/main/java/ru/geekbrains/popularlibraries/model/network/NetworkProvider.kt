@@ -1,4 +1,4 @@
-package ru.geekbrains.popularlibraries.network
+package ru.geekbrains.popularlibraries.model.network
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

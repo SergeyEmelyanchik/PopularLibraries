@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import ru.geekbrains.popularlibraries.network.ReposDto
+import ru.geekbrains.popularlibraries.model.data.ReposDto
 import ru.geekbrains.popularlibraries.view.user.UsersFragment
 import ru.geekbrains.popularlibraries.view.userdetails.UserDetailsFragment
 import ru.geekbrains.popularlibraries.view.userrepository.RepoUserFragment

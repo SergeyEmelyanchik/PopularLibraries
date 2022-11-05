@@ -15,7 +15,7 @@ import ru.geekbrains.popularlibraries.databinding.FragmentUserListBinding
 import ru.geekbrains.popularlibraries.main.UserAdapter
 import ru.geekbrains.popularlibraries.model.GitHubUser
 import ru.geekbrains.popularlibraries.model.repository.GitHubRepositoryImpl
-import ru.geekbrains.popularlibraries.network.NetworkProvider
+import ru.geekbrains.popularlibraries.model.network.NetworkProvider
 import ru.geekbrains.popularlibraries.presenter.UsersPresenter
 import ru.geekbrains.popularlibraries.utils.hide
 import ru.geekbrains.popularlibraries.utils.show
@@ -29,7 +29,11 @@ class UsersFragment : MvpAppCompatFragment(), UserView, OnBackPressedListener {
 
     private val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
-            GitHubRepositoryImpl(NetworkProvider.usersApi),
+            GitHubRepositoryImpl(
+                NetworkProvider.usersApi,
+                App.instance.database.userDao(),
+                App.instance.getConnectSingle()
+            ),
             App.instance.router
         )
     }
