@@ -1,4 +1,4 @@
-package ru.geekbrains.popularlibraries.view
+package ru.geekbrains.popularlibraries.view.main
 
 import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.AppNavigator

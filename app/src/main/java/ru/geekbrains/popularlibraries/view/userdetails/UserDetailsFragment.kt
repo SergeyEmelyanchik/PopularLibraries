@@ -12,7 +12,6 @@ import moxy.ktx.moxyPresenter
 import ru.geekbrains.popularlibraries.core.App
 import ru.geekbrains.popularlibraries.databinding.FragmentUserScreenBinding
 import ru.geekbrains.popularlibraries.model.GitHubUser
-import ru.geekbrains.popularlibraries.model.data.ReposDto
 import ru.geekbrains.popularlibraries.model.repository.GitHubRepositoryImpl
 import ru.geekbrains.popularlibraries.model.network.NetworkProvider
 import ru.geekbrains.popularlibraries.presenter.UserDetailsPresenter
@@ -20,7 +19,7 @@ import ru.geekbrains.popularlibraries.utils.AndroidNetworkStatus
 import ru.geekbrains.popularlibraries.utils.hide
 import ru.geekbrains.popularlibraries.utils.loadGlide
 import ru.geekbrains.popularlibraries.utils.show
-import ru.geekbrains.popularlibraries.view.OnBackPressedListener
+import ru.geekbrains.popularlibraries.view.main.OnBackPressedListener
 
 class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPressedListener {
 
@@ -73,12 +72,14 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPress
     override fun onBackPressed() = presenter.onBackPressed()
 
     @SuppressLint("SetTextI18n")
-    override fun showUser(user: Pair<GitHubUser, List<ReposDto>>) {
+    override fun showUser(user: GitHubUser) {
         TransitionManager.beginDelayedTransition(binding?.root)
-        binding?.userName?.text = user.first.login
-        binding?.ivUserAvatar?.loadGlide(user.first.avatarUrl)
-        binding?.userRepos?.text = "Repo:" + user.second.size.toString()
-        reposAdapter.repos = user.second
+        binding?.userName?.text = user.login
+        binding?.ivUserAvatar?.loadGlide(user.avatarUrl)
+        binding?.userRepos?.text = "Repo:" + user.repos?.size.toString()
+        user.repos?.let {
+            reposAdapter.repos = it
+        }
     }
 
     override fun showLoading() {

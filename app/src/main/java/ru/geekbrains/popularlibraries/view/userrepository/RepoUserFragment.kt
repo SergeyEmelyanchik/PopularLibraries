@@ -10,7 +10,7 @@ import ru.geekbrains.popularlibraries.core.App
 import ru.geekbrains.popularlibraries.databinding.FragmentRepoUserBinding
 import ru.geekbrains.popularlibraries.model.data.ReposDto
 import ru.geekbrains.popularlibraries.presenter.RepoUserPresenter
-import ru.geekbrains.popularlibraries.view.OnBackPressedListener
+import ru.geekbrains.popularlibraries.view.main.OnBackPressedListener
 
 class RepoUserFragment : MvpAppCompatFragment(), RepoUserView, OnBackPressedListener {
 

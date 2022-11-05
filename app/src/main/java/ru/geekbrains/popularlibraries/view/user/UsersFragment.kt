@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.geekbrains.popularlibraries.core.App
-import ru.geekbrains.popularlibraries.view.OnBackPressedListener
+import ru.geekbrains.popularlibraries.view.main.OnBackPressedListener
 import ru.geekbrains.popularlibraries.databinding.FragmentUserListBinding
 import ru.geekbrains.popularlibraries.main.UserAdapter
 import ru.geekbrains.popularlibraries.model.GitHubUser

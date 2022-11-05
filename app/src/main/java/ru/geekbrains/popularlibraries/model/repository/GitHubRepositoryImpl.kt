@@ -1,5 +1,6 @@
 package ru.geekbrains.popularlibraries.model.repository
 
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import ru.geekbrains.popularlibraries.model.database.UserDAO
 import ru.geekbrains.popularlibraries.model.GitHubUser
@@ -23,7 +24,7 @@ class GitHubRepositoryImpl(
         }
     }
 
-    override fun getUserWithReposByLogin(login: String): Single<Pair<GitHubUser, List<ReposDto>>> {
+    override fun getUserWithReposByLogin(login: String): Single<GitHubUser> {
         return networkStatus.flatMap { hasConnection ->
             if (hasConnection) {
                 getUserWithRepoApi(login)
@@ -44,18 +45,18 @@ class GitHubRepositoryImpl(
         return userDao.queryForAllUsers().map { it.map(::mapToEntity) }
     }
 
-    private fun getUserWithReposBD(login: String): Single<Pair<GitHubUser, List<ReposDto>>> {
+    private fun getUserWithReposBD(login: String): Single<GitHubUser> {
         return userDao.getUsersWithRepos(login).map { userWithRepos ->
             val user = mapToEntity(userWithRepos.userDBObject)
             user.repos = userWithRepos.repos.map {
                 it.createdAt = it.createdAt?.substring(0, 10)
                 mapRepos(it)
             }
-            Pair(user, user.repos!!.sortedByDescending { it.createdAt })
+            user
         }
     }
 
-    private fun getUserWithRepoApi(login: String): Single<Pair<GitHubUser, List<ReposDto>>> {
+    private fun getUserWithRepoApi(login: String): Single<GitHubUser> {
         return Single.zip(
             getUserByLogin(login),
             getReposByLogin(login)
@@ -64,12 +65,16 @@ class GitHubRepositoryImpl(
                 it.createdAt = it.createdAt?.substring(0, 10)
                 it
             }
-            Pair<GitHubUser, List<ReposDto>>(user,
-                repos.sortedByDescending { it.createdAt })
-        }.doCompletableIf(true) { pair ->
-            roomCache.insertRepoList(pair.second.map {
-                mapReposToObject(it, pair.first.id)
-            })
+            user.repos = repos
+            user
+        }.doCompletableIf(true) { user ->
+            user.repos?.let { repos ->
+                roomCache.insertRepoList(repos.map { repo ->
+                    mapReposToObject(repo, user.id)
+                })
+            } ?: Completable.create {
+                it.onError(Throwable(message = "Repos is Empty"))
+            }
         }
     }
 

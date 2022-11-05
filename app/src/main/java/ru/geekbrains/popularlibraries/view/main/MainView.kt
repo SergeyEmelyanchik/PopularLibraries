@@ -1,4 +1,4 @@
-package ru.geekbrains.popularlibraries.view
+package ru.geekbrains.popularlibraries.view.main
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
