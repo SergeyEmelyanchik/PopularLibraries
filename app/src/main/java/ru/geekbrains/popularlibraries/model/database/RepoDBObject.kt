@@ -1,4 +1,4 @@
-package ru.geekbrains.popularlibraries.database
+package ru.geekbrains.popularlibraries.model.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

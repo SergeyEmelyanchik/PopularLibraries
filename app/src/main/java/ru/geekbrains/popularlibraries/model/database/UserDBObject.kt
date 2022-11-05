@@ -1,11 +1,11 @@
-package ru.geekbrains.popularlibraries.database
+package ru.geekbrains.popularlibraries.model.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "users")
-data class UserDbObject(
+data class UserDBObject(
     @PrimaryKey
     @ColumnInfo(name = PRIMARY_KEY)
     val id: Int,

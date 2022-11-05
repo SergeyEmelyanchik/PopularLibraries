@@ -5,7 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
-import ru.geekbrains.popularlibraries.database.GitHubDB
+import ru.geekbrains.popularlibraries.model.database.GitHubDB
 
 
 class App : Application() {

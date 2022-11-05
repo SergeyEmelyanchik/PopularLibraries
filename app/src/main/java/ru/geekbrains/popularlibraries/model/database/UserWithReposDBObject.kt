@@ -1,13 +1,13 @@
-package ru.geekbrains.popularlibraries.database
+package ru.geekbrains.popularlibraries.model.database
 
 import androidx.room.Embedded
 import androidx.room.Relation
 
 data class UserWithReposDBObject(
     @Embedded
-    val userDbObject: UserDbObject,
+    val userDBObject: UserDBObject,
     @Relation(
-        parentColumn = UserDbObject.PRIMARY_KEY,
+        parentColumn = UserDBObject.PRIMARY_KEY,
         entityColumn = RepoDBObject.FOREIGN_USER_KEY
     )
     val repos: List<RepoDBObject>,

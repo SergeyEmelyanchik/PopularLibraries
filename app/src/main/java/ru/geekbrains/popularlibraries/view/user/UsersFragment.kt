@@ -33,7 +33,8 @@ class UsersFragment : MvpAppCompatFragment(), UserView, OnBackPressedListener {
             GitHubRepositoryImpl(
                 NetworkProvider.usersApi,
                 App.instance.database.userDao(),
-                AndroidNetworkStatus(requireContext()).isOnlineSingle()),
+                AndroidNetworkStatus(requireContext()).isOnlineSingle()
+            ),
             App.instance.router
         )
     }

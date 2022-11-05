@@ -47,6 +47,7 @@ class GitHubUserReposViewHolder(
 
         dateCreating.text = item.createdAt
 
+        languageRepo.text = item.language
         root.setOnClickListener {
             onUserClickListener.invoke(item)
         }

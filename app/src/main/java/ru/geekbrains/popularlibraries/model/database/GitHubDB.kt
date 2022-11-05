@@ -1,4 +1,4 @@
-package ru.geekbrains.popularlibraries.database
+package ru.geekbrains.popularlibraries.model.database
 
 import android.content.Context
 import androidx.room.Database
@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = arrayOf(UserDbObject::class, RepoDBObject::class),
+    entities = arrayOf(UserDBObject::class, RepoDBObject::class),
     version = 1,
     exportSchema = false
 )

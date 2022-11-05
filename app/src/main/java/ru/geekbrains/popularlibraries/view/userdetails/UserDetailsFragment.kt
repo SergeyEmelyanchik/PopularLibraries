@@ -1,5 +1,6 @@
 package ru.geekbrains.popularlibraries.view.userdetails
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.transition.TransitionManager
 import android.view.LayoutInflater
@@ -71,10 +72,12 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPress
 
     override fun onBackPressed() = presenter.onBackPressed()
 
+    @SuppressLint("SetTextI18n")
     override fun showUser(user: Pair<GitHubUser, List<ReposDto>>) {
         TransitionManager.beginDelayedTransition(binding?.root)
         binding?.userName?.text = user.first.login
         binding?.ivUserAvatar?.loadGlide(user.first.avatarUrl)
+        binding?.userRepos?.text = "Repo:" + user.second.size.toString()
         reposAdapter.repos = user.second
     }
 
@@ -84,6 +87,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPress
             userName.hide()
             ivUserAvatar.hide()
             rvGitHubUserRepos.hide()
+            userRepos.hide()
         }
     }
 
@@ -93,6 +97,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPress
             userName.show()
             ivUserAvatar.show()
             rvGitHubUserRepos.show()
+            userRepos.show()
         }
     }
 

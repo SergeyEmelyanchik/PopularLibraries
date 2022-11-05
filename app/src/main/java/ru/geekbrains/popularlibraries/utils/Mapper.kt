@@ -1,7 +1,7 @@
 package ru.geekbrains.popularlibraries.utils
 
-import ru.geekbrains.popularlibraries.database.RepoDBObject
-import ru.geekbrains.popularlibraries.database.UserDbObject
+import ru.geekbrains.popularlibraries.model.database.RepoDBObject
+import ru.geekbrains.popularlibraries.model.database.UserDBObject
 import ru.geekbrains.popularlibraries.model.GitHubUser
 import ru.geekbrains.popularlibraries.model.data.ReposDto
 import ru.geekbrains.popularlibraries.model.data.UsersDto
@@ -15,8 +15,8 @@ fun mapToEntity(dto: UsersDto): GitHubUser {
     )
 }
 
-fun mapToDBObject(dto: UsersDto): UserDbObject {
-    return UserDbObject(
+fun mapToDBObject(dto: UsersDto): UserDBObject {
+    return UserDBObject(
         id = dto.id,
         login = dto.login,
         avatarUrl = dto.avatarUrl,
@@ -24,12 +24,12 @@ fun mapToDBObject(dto: UsersDto): UserDbObject {
     )
 }
 
-fun mapToEntity(userDbObject: UserDbObject): GitHubUser {
+fun mapToEntity(userDBObject: UserDBObject): GitHubUser {
     return GitHubUser(
-        id = userDbObject.id,
-        login = userDbObject.login,
-        avatarUrl = userDbObject.avatarUrl,
-        reposUrl = userDbObject.reposUrl
+        id = userDBObject.id,
+        login = userDBObject.login,
+        avatarUrl = userDBObject.avatarUrl,
+        reposUrl = userDBObject.reposUrl
     )
 }
 
