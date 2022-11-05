@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.geekbrains.popularlibraries.databinding.ItemReposBinding
 import ru.geekbrains.popularlibraries.network.ReposDto
 
-typealias OnUserClickListener = (login: String) -> Unit
+typealias OnUserClickListener = (repo: ReposDto) -> Unit
 
 class ReposAdapter(
     private val onUserClickListener: OnUserClickListener,
@@ -21,10 +21,12 @@ class ReposAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GitHubUserReposViewHolder {
         return GitHubUserReposViewHolder(
             ItemReposBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false),
-            onUserClickListener)
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ),
+            onUserClickListener
+        )
     }
 
     override fun onBindViewHolder(holder: GitHubUserReposViewHolder, position: Int) {
@@ -43,10 +45,10 @@ class GitHubUserReposViewHolder(
 
         nameRepo.text = item.name
 
-        dateCreating.text=item.createdAt
+        dateCreating.text = item.createdAt
 
         root.setOnClickListener {
-            // onUserClickListener.invoke(item.login)
+            onUserClickListener.invoke(item)
         }
     }
 }

@@ -22,6 +22,7 @@ import ru.geekbrains.popularlibraries.view.OnBackPressedListener
 class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPressedListener {
 
     private val reposAdapter = ReposAdapter {
+        presenter.openRepoScreen(it)
 
     }
 
