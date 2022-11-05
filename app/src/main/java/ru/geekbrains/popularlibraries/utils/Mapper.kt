@@ -38,10 +38,25 @@ fun mapRepos(repoDto: RepoDBObject): ReposDto {
         id = repoDto.id,
         forksCount = repoDto.forks,
         name = repoDto.name,
-        nodeId = "1",
-        createdAt = "1",
-        description = "1",
-        language = "1",
-        updatedAt = "1"
+        nodeId = repoDto.nodeId,
+        createdAt = repoDto.createdAt,
+        description = repoDto.description,
+        language = repoDto.language,
+        updatedAt = repoDto.updatedAt
     )
 }
+
+fun mapReposToObject(repoDto: ReposDto, mUserId: Int): RepoDBObject {
+    return RepoDBObject(
+        id = repoDto.id,
+        forks = repoDto.forksCount,
+        name = repoDto.name,
+        userId = mUserId,
+        language = repoDto.language,
+        description = repoDto.description,
+        createdAt = repoDto.createdAt,
+        nodeId = repoDto.nodeId,
+        updatedAt = repoDto.updatedAt
+    )
+}
+

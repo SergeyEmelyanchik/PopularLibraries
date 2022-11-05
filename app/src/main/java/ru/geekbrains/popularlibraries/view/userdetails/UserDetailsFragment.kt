@@ -15,6 +15,7 @@ import ru.geekbrains.popularlibraries.model.data.ReposDto
 import ru.geekbrains.popularlibraries.model.repository.GitHubRepositoryImpl
 import ru.geekbrains.popularlibraries.model.network.NetworkProvider
 import ru.geekbrains.popularlibraries.presenter.UserDetailsPresenter
+import ru.geekbrains.popularlibraries.utils.AndroidNetworkStatus
 import ru.geekbrains.popularlibraries.utils.hide
 import ru.geekbrains.popularlibraries.utils.loadGlide
 import ru.geekbrains.popularlibraries.utils.show
@@ -33,7 +34,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPress
             App.instance.router,
             GitHubRepositoryImpl(
                 NetworkProvider.usersApi, App.instance.database.userDao(),
-                App.instance.getConnectSingle()
+                AndroidNetworkStatus(requireContext()).isOnlineSingle()
             )
         )
     }

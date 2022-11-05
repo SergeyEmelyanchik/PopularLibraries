@@ -13,31 +13,31 @@ data class ReposDto(
 
     @Expose
     @SerializedName("node_id")
-    val nodeId: String,
+    val nodeId: String? = null,
 
     @Expose
     @SerializedName("name")
-    val name: String,
+    val name: String? = null,
 
     @Expose
     @SerializedName("description")
-    val description: String,
+    val description: String? = null,
 
     @Expose
     @SerializedName("created_at")
-    var createdAt: String,
+    var createdAt: String? = null,
 
     @Expose
     @SerializedName("updated_at")
-    val updatedAt: String,
+    val updatedAt: String? = null,
 
 
     @Expose
     @SerializedName("language")
-    val language: String,
+    val language: String? = null,
 
 
     @Expose
     @SerializedName("forks_count")
-    val forksCount: Int,
+    val forksCount: Int? = null,
 ) : Parcelable

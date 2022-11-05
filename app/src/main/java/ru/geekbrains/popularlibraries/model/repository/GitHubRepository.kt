@@ -6,7 +6,6 @@ import ru.geekbrains.popularlibraries.model.data.ReposDto
 
 interface GitHubRepository {
     fun getUsers(): Single<List<GitHubUser>>
-    fun getUserByLogin(login: String): Single<GitHubUser>
-    fun getReposByLogin(login: String): Single<List<ReposDto>>
-    fun getUserWithRepos(login: String): Single<GitHubUser>
+    fun getUserWithRepos(login: String): Single<Pair<GitHubUser, List<ReposDto>>>
+    fun getUserWithReposByLogin(login: String): Single<Pair<GitHubUser, List<ReposDto>>>
 }

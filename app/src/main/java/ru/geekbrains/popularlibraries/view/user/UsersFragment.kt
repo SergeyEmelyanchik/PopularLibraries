@@ -17,6 +17,7 @@ import ru.geekbrains.popularlibraries.model.GitHubUser
 import ru.geekbrains.popularlibraries.model.repository.GitHubRepositoryImpl
 import ru.geekbrains.popularlibraries.model.network.NetworkProvider
 import ru.geekbrains.popularlibraries.presenter.UsersPresenter
+import ru.geekbrains.popularlibraries.utils.AndroidNetworkStatus
 import ru.geekbrains.popularlibraries.utils.hide
 import ru.geekbrains.popularlibraries.utils.show
 
@@ -32,8 +33,7 @@ class UsersFragment : MvpAppCompatFragment(), UserView, OnBackPressedListener {
             GitHubRepositoryImpl(
                 NetworkProvider.usersApi,
                 App.instance.database.userDao(),
-                App.instance.getConnectSingle()
-            ),
+                AndroidNetworkStatus(requireContext()).isOnlineSingle()),
             App.instance.router
         )
     }

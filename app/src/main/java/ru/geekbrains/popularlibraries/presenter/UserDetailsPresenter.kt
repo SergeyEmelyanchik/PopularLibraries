@@ -29,16 +29,7 @@ class UserDetailsPresenter(
     fun loadUser(login: String) {
         mLogin = login
         viewState.showLoading()
-        Single.zip(
-            repository.getUserByLogin(login),
-            repository.getReposByLogin(login)
-        ) { user, repos ->
-            repos.sortedByDescending { it.createdAt }.map {
-                it.createdAt = it.createdAt.substring(0, 10)
-                it
-            }
-            Pair<GitHubUser, List<ReposDto>>(user,repos)
-        }.subscribeByDefault().subscribe({
+        repository.getUserWithReposByLogin(login).subscribeByDefault().subscribe({
             viewState.hideLoading()
             viewState.showUser(it)
         }, {
