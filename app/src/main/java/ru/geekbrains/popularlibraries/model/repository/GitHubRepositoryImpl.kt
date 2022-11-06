@@ -14,7 +14,7 @@ class GitHubRepositoryImpl(
     private val usersApi: UsersApi,
     private val userDao: UserDAO,
     private val networkStatus: Single<Boolean>,
-    private val roomCache: Cacheable = RoomCache(userDao),
+    private val roomCache: Cacheable,
 ) : GitHubRepository {
 
     override fun getUsers(): Single<List<GitHubUser>> {

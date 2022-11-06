@@ -73,8 +73,8 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPress
         binding?.userName?.text = user.login
         binding?.ivUserAvatar?.loadGlide(user.avatarUrl)
         binding?.userRepos?.text = "Repo:" + user.repos?.size.toString()
-        user.repos?.let {
-            reposAdapter.repos = it
+        user.repos?.let { list ->
+            reposAdapter.repos = list.sortedByDescending { it.createdAt }
         }
     }
 

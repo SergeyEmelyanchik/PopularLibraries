@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,18 +17,20 @@ import javax.inject.Singleton
 
 @Module
 object ApiModule {
-    @Named("baseUrl")
-    @Provides
-    fun provideBaseUrl(): String = "https://api.github.com/"
 
     @Provides
-    fun provideApi(@Named("baseUrl") baseUrl: String, gson: Gson): UsersApi =
+    fun provideApi(@Named("baseUrl") baseUrl: String, gson: Gson, client: OkHttpClient): UsersApi =
         Retrofit.Builder()
             .baseUrl(baseUrl)
+            .client(client)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(UsersApi::class.java)
+
+    @Named("baseUrl")
+    @Provides
+    fun provideBaseUrl(): String = "https://api.github.com/"
 
     @Singleton
     @Provides
@@ -35,6 +38,14 @@ object ApiModule {
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
         .excludeFieldsWithoutExposeAnnotation()
         .create()
+
+    @Singleton
+    @Provides
+    fun client() = OkHttpClient.Builder().addInterceptor { chain ->
+        val request = chain.request()
+        val url = request.url.newBuilder().build()
+        chain.proceed(request.newBuilder().url(url).build())
+    }.build()
 
     @Singleton
     @Provides
