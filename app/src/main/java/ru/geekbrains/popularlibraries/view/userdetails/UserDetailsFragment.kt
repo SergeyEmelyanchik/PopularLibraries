@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import ru.geekbrains.popularlibraries.core.App
 import ru.geekbrains.popularlibraries.databinding.FragmentUserScreenBinding
 import ru.geekbrains.popularlibraries.model.GitHubUser
 import ru.geekbrains.popularlibraries.presenter.UserDetailsPresenter
@@ -27,9 +26,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPress
 
 
     private val presenter: UserDetailsPresenter by moxyPresenter {
-        UserDetailsPresenter().apply {
-            App.instance.appComponent.inject(this)
-        }
+        UserDetailsPresenter(arguments?.getString(KEY_USER))
     }
 
     private var binding: FragmentUserScreenBinding? = null
@@ -55,9 +52,6 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, OnBackPress
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getString(KEY_USER)?.let {
-            presenter.loadUser(it)
-        }
         binding?.rvGitHubUserRepos?.adapter = reposAdapter
         binding?.rvGitHubUserRepos?.layoutManager = LinearLayoutManager(requireContext())
     }

@@ -5,7 +5,7 @@ import moxy.MvpPresenter
 import ru.geekbrains.popularlibraries.core.App
 import ru.geekbrains.popularlibraries.core.navigation.UserScreen
 import ru.geekbrains.popularlibraries.core.navigation.UsersScreen
-import ru.geekbrains.popularlibraries.model.repository.GitHubRepository
+import ru.geekbrains.popularlibraries.model.repository.screen.UsersRepoScreen
 import ru.geekbrains.popularlibraries.utils.subscribeByDefault
 import ru.geekbrains.popularlibraries.view.user.UserView
 import javax.inject.Inject
@@ -14,15 +14,15 @@ import javax.inject.Inject
 class UsersPresenter() : MvpPresenter<UserView>() {
 
     @Inject
-    lateinit var repository: GitHubRepository
+    lateinit var repository: UsersRepoScreen
 
     @Inject
     lateinit var router: Router
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        App.instance.appComponent.inject(this)
         viewState.showLoading()
+        App.instance.appComponent.inject(this)
         repository.getUsers().subscribeByDefault()
             .subscribe({
                 viewState.initList(it)

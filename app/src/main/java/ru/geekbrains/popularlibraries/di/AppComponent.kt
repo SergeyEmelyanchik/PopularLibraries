@@ -15,14 +15,14 @@ import javax.inject.Singleton
         AppModule::class,
         DataBaseModule::class,
         NavigationModule::class,
-        RepositoryModule::class,
-        RepoNetworkModule::class
+        RepoNetworkModule::class,
+        UsersScreenModule::class
     ]
 )
 interface AppComponent {
+    fun userSubcomponent(): RepositorySubcomponent
     fun inject(mainActivity: MainActivity)
     fun inject(mainPresenter: MainPresenter)
     fun inject(usersPresenter: UsersPresenter)
-    fun inject(detailsPresenter: UserDetailsPresenter)
     fun inject(repoUserPresenter: RepoUserPresenter)
 }
