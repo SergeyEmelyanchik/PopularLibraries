@@ -3,21 +3,21 @@ package ru.geekbrains.popularlibraries.model.repository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import ru.geekbrains.popularlibraries.model.GitHubUser
-import ru.geekbrains.popularlibraries.model.database.dao.UserRepoDao
-import ru.geekbrains.popularlibraries.model.database.dao.UsersDao
 import ru.geekbrains.popularlibraries.model.network.ReposDto
-import ru.geekbrains.popularlibraries.model.network.GitHubApi
 import ru.geekbrains.popularlibraries.model.network.GitHubApiRepo
+import ru.geekbrains.popularlibraries.model.repository.room.Cacheable
+import ru.geekbrains.popularlibraries.model.repository.room.UserRepositoryRepo
+import ru.geekbrains.popularlibraries.model.repository.room.UsersRepo
 import ru.geekbrains.popularlibraries.utils.*
 import java.util.concurrent.TimeUnit
 
 
 class GitHubRepositoryImpl(
     private val githubApiRepo: GitHubApiRepo,
-    private val usersDao: UsersDao,
+    private val usersRepo: UsersRepo,
+    private val userRepositoryRepo: UserRepositoryRepo,
     private val networkStatus: Single<Boolean>,
     private val roomCache: Cacheable,
-    private val userRepoDao: UserRepoDao,
 ) : GitHubRepository {
 
     override fun getUsers(): Single<List<GitHubUser>> {
@@ -34,7 +34,7 @@ class GitHubRepositoryImpl(
     }
 
     private fun getUsersBD(): Single<List<GitHubUser>> {
-        return usersDao.queryForAllUsers().map { it.map(::mapToEntity) }
+        return usersRepo.queryForAllUsers().map { it.map(::mapToEntity) }
     }
 
     override fun getUserWithReposByLogin(login: String): Single<GitHubUser> {
@@ -49,7 +49,7 @@ class GitHubRepositoryImpl(
 
 
     private fun getUserWithReposBD(login: String): Single<GitHubUser> {
-        return userRepoDao.getUsersWithRepos(login).map { userWithRepos ->
+        return userRepositoryRepo.getUsersWithRepos(login).map { userWithRepos ->
             val user = mapToEntity(userWithRepos.usersDbEntity)
             user.repos = userWithRepos.repos.map {
                 it.createdAt = it.createdAt?.substring(0, 10)

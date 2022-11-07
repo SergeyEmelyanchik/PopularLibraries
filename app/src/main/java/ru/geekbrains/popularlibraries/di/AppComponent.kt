@@ -16,7 +16,6 @@ import javax.inject.Singleton
         DataBaseModule::class,
         NavigationModule::class,
         RepositoryModule::class,
-        CacheModule::class,
         RepoNetworkModule::class
     ]
 )
