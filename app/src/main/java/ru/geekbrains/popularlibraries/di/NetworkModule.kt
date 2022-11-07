@@ -11,22 +11,22 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.geekbrains.popularlibraries.core.ConnectivityListener
-import ru.geekbrains.popularlibraries.model.network.UsersApi
+import ru.geekbrains.popularlibraries.model.network.GitHubApi
 import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-object ApiModule {
+object NetworkModule {
 
     @Provides
-    fun provideApi(@Named("baseUrl") baseUrl: String, gson: Gson, client: OkHttpClient): UsersApi =
+    fun provideApi(@Named("baseUrl") baseUrl: String, gson: Gson, client: OkHttpClient): GitHubApi =
         Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-            .create(UsersApi::class.java)
+            .create(GitHubApi::class.java)
 
     @Named("baseUrl")
     @Provides

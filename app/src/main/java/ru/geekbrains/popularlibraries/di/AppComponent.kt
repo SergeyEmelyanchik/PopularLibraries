@@ -11,12 +11,13 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        ApiModule::class,
+        NetworkModule::class,
         AppModule::class,
         DataBaseModule::class,
         NavigationModule::class,
         RepositoryModule::class,
-        CacheModule::class
+        CacheModule::class,
+        RepoNetworkModule::class
     ]
 )
 interface AppComponent {

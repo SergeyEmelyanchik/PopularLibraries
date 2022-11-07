@@ -3,18 +3,21 @@ package ru.geekbrains.popularlibraries.model.repository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import ru.geekbrains.popularlibraries.model.GitHubUser
+import ru.geekbrains.popularlibraries.model.database.dao.UserRepoDao
 import ru.geekbrains.popularlibraries.model.database.dao.UsersDao
 import ru.geekbrains.popularlibraries.model.network.ReposDto
-import ru.geekbrains.popularlibraries.model.network.UsersApi
+import ru.geekbrains.popularlibraries.model.network.GitHubApi
+import ru.geekbrains.popularlibraries.model.network.GitHubApiRepo
 import ru.geekbrains.popularlibraries.utils.*
 import java.util.concurrent.TimeUnit
 
 
 class GitHubRepositoryImpl(
-    private val usersApi: UsersApi,
+    private val githubApiRepo: GitHubApiRepo,
     private val usersDao: UsersDao,
     private val networkStatus: Single<Boolean>,
     private val roomCache: Cacheable,
+    private val userRepoDao: UserRepoDao,
 ) : GitHubRepository {
 
     override fun getUsers(): Single<List<GitHubUser>> {
@@ -25,7 +28,7 @@ class GitHubRepositoryImpl(
     }
 
     private fun getUsersApi(shouldPersist: Boolean): Single<List<GitHubUser>> {
-        return usersApi.getAllUsers().doCompletableIf(shouldPersist) {
+        return githubApiRepo.getAllUsers().doCompletableIf(shouldPersist) {
             roomCache.insertUserList(it.map(::mapToDBObject))
         }.map { it.map(::mapToEntity) }
     }
@@ -46,7 +49,7 @@ class GitHubRepositoryImpl(
 
 
     private fun getUserWithReposBD(login: String): Single<GitHubUser> {
-        return usersDao.getUsersWithRepos(login).map { userWithRepos ->
+        return userRepoDao.getUsersWithRepos(login).map { userWithRepos ->
             val user = mapToEntity(userWithRepos.usersDbEntity)
             user.repos = userWithRepos.repos.map {
                 it.createdAt = it.createdAt?.substring(0, 10)
@@ -79,10 +82,10 @@ class GitHubRepositoryImpl(
     }
 
     private fun getUserByLogin(login: String): Single<GitHubUser> {
-        return usersApi.getUser(login).map(::mapToEntity).delay(500, TimeUnit.MILLISECONDS)
+        return githubApiRepo.getUser(login).map(::mapToEntity).delay(500, TimeUnit.MILLISECONDS)
     }
 
     private fun getReposByLogin(login: String): Single<List<ReposDto>> {
-        return usersApi.getRepos(login)
+        return githubApiRepo.getRepos(login)
     }
 }

@@ -2,6 +2,7 @@ package ru.geekbrains.popularlibraries.di
 
 import dagger.Module
 import dagger.Provides
+import ru.geekbrains.popularlibraries.model.database.dao.UserRepoDao
 import ru.geekbrains.popularlibraries.model.database.dao.UsersDao
 import ru.geekbrains.popularlibraries.model.repository.Cacheable
 import ru.geekbrains.popularlibraries.model.repository.RoomCache
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 object CacheModule {
     @Singleton
     @Provides
-    fun cacheable(usersDao: UsersDao): Cacheable {
-        return RoomCache(usersDao)
+    fun cacheable(usersDao: UsersDao, repoDao: UserRepoDao): Cacheable {
+        return RoomCache(usersDao, repoDao)
     }
 }
