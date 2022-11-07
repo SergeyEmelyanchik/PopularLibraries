@@ -2,9 +2,9 @@ package ru.geekbrains.popularlibraries.model.repository
 
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import ru.geekbrains.popularlibraries.model.database.UserDAO
 import ru.geekbrains.popularlibraries.model.GitHubUser
-import ru.geekbrains.popularlibraries.model.data.ReposDto
+import ru.geekbrains.popularlibraries.model.database.dao.UsersDao
+import ru.geekbrains.popularlibraries.model.network.ReposDto
 import ru.geekbrains.popularlibraries.model.network.UsersApi
 import ru.geekbrains.popularlibraries.utils.*
 import java.util.concurrent.TimeUnit
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 class GitHubRepositoryImpl(
     private val usersApi: UsersApi,
-    private val userDao: UserDAO,
+    private val usersDao: UsersDao,
     private val networkStatus: Single<Boolean>,
     private val roomCache: Cacheable,
 ) : GitHubRepository {
@@ -22,6 +22,16 @@ class GitHubRepositoryImpl(
             if (hasConnection) getUsersApi(true)
             else getUsersBD()
         }
+    }
+
+    private fun getUsersApi(shouldPersist: Boolean): Single<List<GitHubUser>> {
+        return usersApi.getAllUsers().doCompletableIf(shouldPersist) {
+            roomCache.insertUserList(it.map(::mapToDBObject))
+        }.map { it.map(::mapToEntity) }
+    }
+
+    private fun getUsersBD(): Single<List<GitHubUser>> {
+        return usersDao.queryForAllUsers().map { it.map(::mapToEntity) }
     }
 
     override fun getUserWithReposByLogin(login: String): Single<GitHubUser> {
@@ -35,19 +45,9 @@ class GitHubRepositoryImpl(
     }
 
 
-    private fun getUsersApi(shouldPersist: Boolean): Single<List<GitHubUser>> {
-        return usersApi.getAllUsers().doCompletableIf(shouldPersist) {
-            roomCache.insertUserList(it.map(::mapToDBObject))
-        }.map { it.map(::mapToEntity) }
-    }
-
-    private fun getUsersBD(): Single<List<GitHubUser>> {
-        return userDao.queryForAllUsers().map { it.map(::mapToEntity) }
-    }
-
     private fun getUserWithReposBD(login: String): Single<GitHubUser> {
-        return userDao.getUsersWithRepos(login).map { userWithRepos ->
-            val user = mapToEntity(userWithRepos.userDBObject)
+        return usersDao.getUsersWithRepos(login).map { userWithRepos ->
+            val user = mapToEntity(userWithRepos.usersDbEntity)
             user.repos = userWithRepos.repos.map {
                 it.createdAt = it.createdAt?.substring(0, 10)
                 mapRepos(it)

@@ -1,10 +1,10 @@
 package ru.geekbrains.popularlibraries.utils
 
-import ru.geekbrains.popularlibraries.model.database.RepoDBObject
-import ru.geekbrains.popularlibraries.model.database.UserDBObject
 import ru.geekbrains.popularlibraries.model.GitHubUser
-import ru.geekbrains.popularlibraries.model.data.ReposDto
-import ru.geekbrains.popularlibraries.model.data.UsersDto
+import ru.geekbrains.popularlibraries.model.network.ReposDto
+import ru.geekbrains.popularlibraries.model.database.entity.UserRepoDBEntity
+import ru.geekbrains.popularlibraries.model.database.entity.UsersDBEntity
+import ru.geekbrains.popularlibraries.model.network.UsersDto
 
 fun mapToEntity(dto: UsersDto): GitHubUser {
     return GitHubUser(
@@ -15,8 +15,8 @@ fun mapToEntity(dto: UsersDto): GitHubUser {
     )
 }
 
-fun mapToDBObject(dto: UsersDto): UserDBObject {
-    return UserDBObject(
+fun mapToDBObject(dto: UsersDto): UsersDBEntity {
+    return UsersDBEntity(
         id = dto.id,
         login = dto.login,
         avatarUrl = dto.avatarUrl,
@@ -24,16 +24,16 @@ fun mapToDBObject(dto: UsersDto): UserDBObject {
     )
 }
 
-fun mapToEntity(userDBObject: UserDBObject): GitHubUser {
+fun mapToEntity(usersDbEntity: UsersDBEntity): GitHubUser {
     return GitHubUser(
-        id = userDBObject.id,
-        login = userDBObject.login,
-        avatarUrl = userDBObject.avatarUrl,
-        reposUrl = userDBObject.reposUrl
+        id = usersDbEntity.id,
+        login = usersDbEntity.login,
+        avatarUrl = usersDbEntity.avatarUrl,
+        reposUrl = usersDbEntity.reposUrl
     )
 }
 
-fun mapRepos(repoDto: RepoDBObject): ReposDto {
+fun mapRepos(repoDto: UserRepoDBEntity): ReposDto {
     return ReposDto(
         id = repoDto.id,
         forksCount = repoDto.forks,
@@ -46,8 +46,8 @@ fun mapRepos(repoDto: RepoDBObject): ReposDto {
     )
 }
 
-fun mapReposToObject(repoDto: ReposDto, mUserId: Int): RepoDBObject {
-    return RepoDBObject(
+fun mapReposToObject(repoDto: ReposDto, mUserId: Int): UserRepoDBEntity {
+    return UserRepoDBEntity(
         id = repoDto.id,
         forks = repoDto.forksCount,
         name = repoDto.name,

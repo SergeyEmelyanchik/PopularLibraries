@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import ru.geekbrains.popularlibraries.core.App
 import ru.geekbrains.popularlibraries.databinding.FragmentRepoUserBinding
-import ru.geekbrains.popularlibraries.model.data.ReposDto
+import ru.geekbrains.popularlibraries.model.network.ReposDto
 import ru.geekbrains.popularlibraries.presenter.RepoUserPresenter
 import ru.geekbrains.popularlibraries.view.main.OnBackPressedListener
 

@@ -1,16 +1,16 @@
 package ru.geekbrains.popularlibraries.model.repository
 
 import io.reactivex.rxjava3.core.Completable
-import ru.geekbrains.popularlibraries.model.database.RepoDBObject
-import ru.geekbrains.popularlibraries.model.database.UserDAO
-import ru.geekbrains.popularlibraries.model.database.UserDBObject
+import ru.geekbrains.popularlibraries.model.database.dao.UsersDao
+import ru.geekbrains.popularlibraries.model.database.entity.UserRepoDBEntity
+import ru.geekbrains.popularlibraries.model.database.entity.UsersDBEntity
 
-class RoomCache(private val userDao: UserDAO) : Cacheable {
-    override fun insertRepoList(list: List<RepoDBObject>): Completable {
-        return userDao.insertAllRepos(list)
+class RoomCache(private val usersDao: UsersDao) : Cacheable {
+    override fun insertRepoList(list: List<UserRepoDBEntity>): Completable {
+        return usersDao.insertAllRepos(list)
     }
 
-    override fun insertUserList(list: List<UserDBObject>): Completable {
-        return userDao.insertAll(list)
+    override fun insertUserList(list: List<UsersDBEntity>): Completable {
+        return usersDao.insertAll(list)
     }
 }

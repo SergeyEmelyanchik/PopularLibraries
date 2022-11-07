@@ -1,6 +1,5 @@
 package ru.geekbrains.popularlibraries.presenter
 
-import android.util.Log
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import ru.geekbrains.popularlibraries.core.App
@@ -24,11 +23,8 @@ class UsersPresenter() : MvpPresenter<UserView>() {
         super.onFirstViewAttach()
         App.instance.appComponent.inject(this)
         viewState.showLoading()
-        Log.d("TAG", "onFirstViewAttach() called")
         repository.getUsers().subscribeByDefault()
             .subscribe({
-                Log.d("TAG", "subscribe")
-                Log.d("TAG", "${it.size}")
                 viewState.initList(it)
                 viewState.hideLoading()
             },

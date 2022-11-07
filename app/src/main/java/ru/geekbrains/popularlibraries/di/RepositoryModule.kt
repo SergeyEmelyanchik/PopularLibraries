@@ -3,7 +3,7 @@ package ru.geekbrains.popularlibraries.di
 import dagger.Module
 import dagger.Provides
 import ru.geekbrains.popularlibraries.core.ConnectivityListener
-import ru.geekbrains.popularlibraries.model.database.UserDAO
+import ru.geekbrains.popularlibraries.model.database.dao.UsersDao
 import ru.geekbrains.popularlibraries.model.network.UsersApi
 import ru.geekbrains.popularlibraries.model.repository.Cacheable
 import ru.geekbrains.popularlibraries.model.repository.GitHubRepository
@@ -17,10 +17,10 @@ object RepositoryModule {
     @Singleton
     fun provideUserRepository(
         usersApi: UsersApi,
-        userDao: UserDAO,
+        usersDao: UsersDao,
         networkStatus: ConnectivityListener,
         cacheable: Cacheable,
     ): GitHubRepository {
-        return GitHubRepositoryImpl(usersApi, userDao, networkStatus.statusSingle(), cacheable)
+        return GitHubRepositoryImpl(usersApi, usersDao, networkStatus.statusSingle(), cacheable)
     }
 }

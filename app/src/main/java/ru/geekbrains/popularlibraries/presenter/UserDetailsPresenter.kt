@@ -2,14 +2,12 @@ package ru.geekbrains.popularlibraries.presenter
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 import ru.geekbrains.popularlibraries.core.navigation.RepoScreen
 import ru.geekbrains.popularlibraries.core.navigation.UserScreen
-import ru.geekbrains.popularlibraries.model.GitHubUser
 import ru.geekbrains.popularlibraries.model.repository.GitHubRepository
-import ru.geekbrains.popularlibraries.model.data.ReposDto
+import ru.geekbrains.popularlibraries.model.network.ReposDto
 import ru.geekbrains.popularlibraries.utils.disposebleBy
 import ru.geekbrains.popularlibraries.utils.subscribeByDefault
 import ru.geekbrains.popularlibraries.view.userdetails.UserDetailsView
@@ -40,13 +38,13 @@ class UserDetailsPresenter() : MvpPresenter<UserDetailsView>() {
 
     fun onBackPressed(): Boolean {
         mLogin?.let {
-            router.navigateTo(UserScreen(it))
+            router.backTo(UserScreen(it))
         }
         return true
     }
 
     fun openRepoScreen(repo: ReposDto) {
-        router.backTo(RepoScreen(repo))
+        router.navigateTo(RepoScreen(repo))
     }
 
     override fun onDestroy() {

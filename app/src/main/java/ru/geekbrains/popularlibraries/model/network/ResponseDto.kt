@@ -1,4 +1,4 @@
-package ru.geekbrains.popularlibraries.model.data
+package ru.geekbrains.popularlibraries.model.network
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
@@ -40,4 +40,23 @@ data class ReposDto(
     @Expose
     @SerializedName("forks_count")
     val forksCount: Int? = null,
+) : Parcelable
+
+@Parcelize
+data class UsersDto(
+    @Expose
+    @SerializedName("id")
+    val id: Int,
+
+    @Expose
+    @SerializedName("login")
+    val login: String,
+
+    @Expose
+    @SerializedName("avatar_url")
+    val avatarUrl: String,
+
+    @Expose
+    @SerializedName("repos_url")
+    val reposUrl: String,
 ) : Parcelable

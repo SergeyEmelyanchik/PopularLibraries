@@ -3,7 +3,7 @@ package ru.geekbrains.popularlibraries.presenter
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import ru.geekbrains.popularlibraries.core.App
-import ru.geekbrains.popularlibraries.model.data.ReposDto
+import ru.geekbrains.popularlibraries.model.network.ReposDto
 import ru.geekbrains.popularlibraries.view.userrepository.RepoUserView
 import javax.inject.Inject
 

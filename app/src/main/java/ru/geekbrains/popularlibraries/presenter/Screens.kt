@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import ru.geekbrains.popularlibraries.model.data.ReposDto
+import ru.geekbrains.popularlibraries.model.network.ReposDto
 import ru.geekbrains.popularlibraries.view.user.UsersFragment
 import ru.geekbrains.popularlibraries.view.userdetails.UserDetailsFragment
 import ru.geekbrains.popularlibraries.view.userrepository.RepoUserFragment
@@ -26,7 +26,7 @@ data class UserScreen(private val userLogin: String) : FragmentScreen {
 data class RepoScreen(private val repo: ReposDto) : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
         return RepoUserFragment.getInstance(Bundle().apply {
-            putParcelable(KEY_REPO,repo)
+            putParcelable(KEY_REPO, repo)
         })
     }
 }

@@ -1,10 +1,10 @@
 package ru.geekbrains.popularlibraries.model.repository
 
 import io.reactivex.rxjava3.core.Completable
-import ru.geekbrains.popularlibraries.model.database.RepoDBObject
-import ru.geekbrains.popularlibraries.model.database.UserDBObject
+import ru.geekbrains.popularlibraries.model.database.entity.UserRepoDBEntity
+import ru.geekbrains.popularlibraries.model.database.entity.UsersDBEntity
 
 interface Cacheable {
-    fun insertRepoList(list: List<RepoDBObject>): Completable
-    fun insertUserList(list: List<UserDBObject>): Completable
+    fun insertRepoList(list: List<UserRepoDBEntity>): Completable
+    fun insertUserList(list: List<UsersDBEntity>): Completable
 }

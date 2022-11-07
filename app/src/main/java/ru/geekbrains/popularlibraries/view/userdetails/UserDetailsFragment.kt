@@ -12,10 +12,7 @@ import moxy.ktx.moxyPresenter
 import ru.geekbrains.popularlibraries.core.App
 import ru.geekbrains.popularlibraries.databinding.FragmentUserScreenBinding
 import ru.geekbrains.popularlibraries.model.GitHubUser
-import ru.geekbrains.popularlibraries.model.repository.GitHubRepositoryImpl
-import ru.geekbrains.popularlibraries.model.network.NetworkProvider
 import ru.geekbrains.popularlibraries.presenter.UserDetailsPresenter
-import ru.geekbrains.popularlibraries.utils.AndroidNetworkStatus
 import ru.geekbrains.popularlibraries.utils.hide
 import ru.geekbrains.popularlibraries.utils.loadGlide
 import ru.geekbrains.popularlibraries.utils.show

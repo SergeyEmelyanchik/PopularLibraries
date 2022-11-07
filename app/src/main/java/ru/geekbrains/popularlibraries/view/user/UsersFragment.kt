@@ -9,15 +9,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import ru.geekbrains.popularlibraries.core.App
 import ru.geekbrains.popularlibraries.view.main.OnBackPressedListener
 import ru.geekbrains.popularlibraries.databinding.FragmentUserListBinding
 import ru.geekbrains.popularlibraries.main.UserAdapter
 import ru.geekbrains.popularlibraries.model.GitHubUser
-import ru.geekbrains.popularlibraries.model.repository.GitHubRepositoryImpl
-import ru.geekbrains.popularlibraries.model.network.NetworkProvider
 import ru.geekbrains.popularlibraries.presenter.UsersPresenter
-import ru.geekbrains.popularlibraries.utils.AndroidNetworkStatus
 import ru.geekbrains.popularlibraries.utils.hide
 import ru.geekbrains.popularlibraries.utils.show
 
